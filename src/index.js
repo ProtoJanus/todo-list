@@ -3,6 +3,7 @@ import "./styles.css";
 class Todo {
   constructor(taskName, taskDescription, dueDate, list) {
     this.id = Date.now() + Math.random();
+    this.completed = false;
     this.taskName = taskName;
     this.taskDescription = taskDescription;
     this.dueDate = dueDate;
