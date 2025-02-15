@@ -17,8 +17,32 @@
       <button class="new-task-button">New Task</button>
 
       <dialog class="new-task-dialog">
-        <h1>Hello this is a test</h1>
-        <button class="close-dialog">close</button>
+        <form>
+          <div>
+            <label for="task_name">Task Name</label>
+            <input type="text" id="task_name" name="task_name" required />
+          </div>
+          <div>
+            <label for="task_description">Task Description</label>
+            <input
+              type="text"
+              id="task_description"
+              name="task_description"
+              required
+            />
+          </div>
+          <div>
+            <label for="due_date">Due Date</label>
+            <input type="date" id="due_date" name="due_date" required />
+          </div>
+          <div>
+            <label for="list">List</label>
+            <select id="list" name="list" required>
+              <option value="option1">Option 1</option>
+            </select>
+          </div>
+          <button class="close-dialog" type="submit">Submit</button>
+        </form>
       </dialog>
     </div>
   </body>
