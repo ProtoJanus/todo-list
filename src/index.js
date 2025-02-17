@@ -1,13 +1,13 @@
 import "./styles.css";
 
 class Todo {
-  constructor(taskName, taskDescription, dueDate, category) {
+  constructor(todoName, todoDescription, todoDueDate, todoCategory) {
     this.id = Date.now() + Math.random();
     this.completed = false;
-    this.taskName = taskName;
-    this.taskDescription = taskDescription;
-    this.dueDate = dueDate;
-    this.category = category;
+    this.todoName = todoName;
+    this.todoDescription = todoDescription;
+    this.todoDueDate = todoDueDate;
+    this.todoCategory = todoCategory;
   }
 }
 
@@ -18,9 +18,14 @@ class TodoController {
     return JSON.parse(localStorage.getItem("todos") || "[]");
   }
 
-  static addTodo(taskName, taskDescription, dueDate, category) {
-    const newTodo = new Todo(taskName, taskDescription, dueDate, category);
-    const todos = TodoController.getTodos;
+  static addTodo(todoName, todoDescription, todoDueDate, todoCategory) {
+    const newTodo = new Todo(
+      todoName,
+      todoDescription,
+      todoDueDate,
+      todoCategory
+    );
+    const todos = TodoController.getTodos();
     todos.push(newTodo);
     localStorage.setItem("todos", JSON.stringify(todos));
 
@@ -35,26 +40,51 @@ class TodoUIController {
 
   renderTodo(todo) {
     const todoRow = document.createElement("div");
-    const todoTaskName = document.createElement("div");
-    todoTaskName.textContent = todo.taskName;
+    const todoName = document.createElement("div");
+    todoName.textContent = todo.todoName;
     const todoDueDate = document.createElement("div");
     todoDueDate.textContent = todo.dueDate;
 
-    todoRow.appendChild(todoTaskName);
+    todoRow.appendChild(todoName);
     todoRow.appendChild(todoDueDate);
 
-    this.taskTable.appendChild(todoRow);
+    this.todoTable.appendChild(todoRow);
   }
 }
+const todoUIController = new TodoUIController();
+const dialog = document.querySelector(".new-todo-dialog");
 
-const dialog = document.querySelector(".new-task-dialog");
-
-const newTaskButton = document.querySelector(".new-task-button");
-newTaskButton.addEventListener("click", () => {
+const newTodoButton = document.querySelector(".new-todo-button");
+newTodoButton.addEventListener("click", () => {
   dialog.showModal();
 });
 
 const closeDialog = document.querySelector(".close-dialog");
-closeDialog.addEventListener("click", () => {
+closeDialog.addEventListener("click", (e) => {
+  e.preventDefault();
+  const form = document.querySelector("form");
+  const formData = new FormData(form);
+
+  const todoName = formData.get("todo_name");
+  const todoDescription = formData.get("todo_description");
+  const todoDueDate = formData.get("due_date");
+  const todoCategory = formData.get("list");
+
+  const newTodo = TodoController.addTodo(
+    todoName,
+    todoDescription,
+    todoDueDate,
+    todoCategory
+  );
+
+  todoUIController.renderTodo(newTodo);
+
   dialog.close();
+
+  document.querySelector("form").reset();
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+  const todos = TodoController.getTodos();
+  todos.forEach((todo) => todoUIController.renderTodo(todo));
 });
