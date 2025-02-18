@@ -12,7 +12,7 @@ body {
   max-width: 300px;
   position: fixed;
   top: 0;
-  right: -450px;
+  left: -450px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -22,7 +22,7 @@ body {
 }
 
 .sidebar.active {
-  right: 0;
+  left: 0;
 }
 
 .main-content-header {
@@ -34,7 +34,7 @@ body {
 .hamburger-button {
   height: 50px;
   width: 50px;
-  margin-left: auto;
+  margin-right: auto;
   position: relative;
 }
 
@@ -45,8 +45,8 @@ body {
   border-radius: 25px;
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  left: 0;
+  transform: translate(0, -50%);
   transition: 0.3s ease;
 }
 
@@ -59,7 +59,7 @@ body {
 }
 
 .hamburger-button.active span:nth-child(1) {
-  transform: translate(-50%, -50%) rotate(45deg);
+  transform: translate(0, -50%) rotate(45deg);
   top: 50%;
 }
 
@@ -68,9 +68,10 @@ body {
 }
 
 .hamburger-button.active span:nth-child(3) {
-  transform: translate(-50%, -50%) rotate(-45deg);
+  transform: translate(0, -50%) rotate(-45deg);
   top: 50%;
 }
+
 .main-content {
   box-sizing: border-box;
   height: 100%;
@@ -91,7 +92,6 @@ body {
 .todo-row {
   border: 1px solid black;
   display: flex;
-
   justify-content: space-between;
 }
 
@@ -103,17 +103,19 @@ body {
 
 dialog {
   border: none;
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    div {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 5px;
-    }
-    height: 100%;
-    width: 100%;
-  }
+}
+
+dialog form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+  width: 100%;
+}
+
+dialog form div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
 }
