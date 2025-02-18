@@ -40,12 +40,23 @@ class TodoUIController {
 
   renderTodo(todo) {
     const todoRow = document.createElement("div");
+    todoRow.classList.add("todo-row");
+
+    const nameCheckBoxGroup = document.createElement("div");
+    const todoCheckbox = document.createElement("input");
+    todoCheckbox.type = "checkbox";
+
     const todoName = document.createElement("div");
     todoName.textContent = todo.todoName;
-    const todoDueDate = document.createElement("div");
-    todoDueDate.textContent = todo.dueDate;
 
-    todoRow.appendChild(todoName);
+    nameCheckBoxGroup.appendChild(todoCheckbox);
+    nameCheckBoxGroup.appendChild(todoName);
+    nameCheckBoxGroup.classList.add("name-checkbox-group");
+
+    const todoDueDate = document.createElement("div");
+    todoDueDate.textContent = todo.todoDueDate;
+
+    todoRow.appendChild(nameCheckBoxGroup);
     todoRow.appendChild(todoDueDate);
 
     this.todoTable.appendChild(todoRow);
@@ -87,4 +98,18 @@ closeDialog.addEventListener("click", (e) => {
 window.addEventListener("DOMContentLoaded", () => {
   const todos = TodoController.getTodos();
   todos.forEach((todo) => todoUIController.renderTodo(todo));
+});
+
+for (let i = 0; i < localStorage.length; i++) {
+  const key = localStorage.key(i);
+  const value = localStorage.getItem(key);
+  console.log(`${key}: ${value}`);
+}
+
+const hamburgerButton = document.querySelector(".hamburger-button");
+const sidebar = document.querySelector(".sidebar");
+
+hamburgerButton.addEventListener("click", () => {
+  hamburgerButton.classList.toggle("active");
+  sidebar.classList.toggle("active");
 });
