@@ -100,7 +100,6 @@ body {
   justify-content: space-between;
   border-radius: 5px;
   padding: 10px 20px;
-  background-color: #2d303f;
   color: white;
 }
 
@@ -110,7 +109,7 @@ body {
   gap: 10px;
 }
 
-dialog {
+.new-todo-dialog {
   border: none;
 }
 
@@ -140,4 +139,171 @@ dialog form div {
   padding: 8px;
   font-size: 20px;
   color: white;
+}
+
+.todo-dialog {
+  padding: 0;
+  border: none;
+  border-radius: 10px;
+  background-color: #494e63;
+}
+
+dialog::backdrop {
+  backdrop-filter: blur(3px);
+}
+
+.todo-dialog-main-content {
+  color: white;
+  height: 440px;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background-color: #494e63;
+}
+
+.todo-dialog-button-group {
+  margin-top: auto;
+  display: flex;
+  gap: 20px;
+  margin-bottom: 15px;
+
+  button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #5f73da;
+    color: white;
+    border-radius: 6px;
+    font-size: 18px;
+  }
+}
+
+.todo-dialog-header {
+  font-size: 50px;
+  align-self: flex-start;
+  justify-self: flex-start;
+  font-weight: 700;
+  background-color: #27282e;
+  width: 100%;
+  padding: 20px 0px 20px 20px;
+  box-sizing: border-box;
+
+  display: flex;
+  gap: 15px;
+}
+
+.todo-dialog-name {
+  font-size: 25px;
+  padding: 5px;
+  width: 90%;
+  background-color: #3c4050;
+  color: white;
+  border: none;
+  box-sizing: border-box;
+}
+
+.todo-dialog-description {
+  width: 90%;
+  height: 175px;
+  background-color: #3c4050;
+  color: white;
+  border: none;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.todo-dialog-element {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  max-width: 90%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+:root {
+  --color-1: #27282e;
+  --color-2: #2ecc71;
+  --color-3: #f1c40f;
+  --color-4: #e74c3c;
+}
+
+.color-1 {
+  background-color: #27282e;
+}
+
+.color-2 {
+  background-color: #2ecc71;
+}
+
+.color-3 {
+  background-color: #f1c40f;
+}
+
+.color-4 {
+  background-color: #e74c3c;
+}
+
+.custom-radios {
+  gap: 3px;
+  display: flex;
+}
+
+.custom-radios div {
+  margin-top: 18px;
+  display: flex;
+}
+
+.custom-radios input[type="radio"] {
+  display: none;
+}
+
+.custom-radios input[type="radio"] + label {
+  color: #333;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.custom-radios input[type="radio"] + label span {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin: -1px 4px 0 0;
+  vertical-align: middle;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
+  background-repeat: no-repeat;
+  background-position: center;
+  text-align: center;
+  line-height: 34px;
+}
+
+.custom-radios input[type="radio"] + label span img {
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.custom-radios input[type="radio"]#color-1 + label span {
+  background-color: var(--color-1);
+}
+
+.custom-radios input[type="radio"]#color-2 + label span {
+  background-color: var(--color-2);
+}
+
+.custom-radios input[type="radio"]#color-3 + label span {
+  background-color: var(--color-3);
+}
+
+.custom-radios input[type="radio"]#color-4 + label span {
+  background-color: var(--color-4);
+}
+
+.custom-radios input[type="radio"]:checked + label span img {
+  opacity: 1;
 }
