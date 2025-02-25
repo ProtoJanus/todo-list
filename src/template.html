@@ -7,11 +7,7 @@
   </head>
   <body>
     <div class="sidebar">
-      <ul>
-        <li><a href="">Personal</a></li>
-        <li><a href="">Work</a></li>
-        <li><a href="">School</a></li>
-      </ul>
+      <div class="sidebar-header">Categories</div>
     </div>
     <div class="main-content">
       <div class="main-content-header">
@@ -29,31 +25,39 @@
       <button class="new-todo-button">New Todo</button>
 
       <dialog class="new-todo-dialog">
-        <form>
-          <div>
-            <label for="todo_name">Task Name</label>
-            <input type="text" id="todo_name" name="todo_name" required />
-          </div>
-          <div>
-            <label for="todo_description">To-do Description</label>
-            <textarea
-              id="todo_description"
-              name="todo_description"
-              required
-            ></textarea>
-          </div>
-          <div>
-            <label for="due_date">Due Date</label>
-            <input type="date" id="due_date" name="due_date" required />
-          </div>
-          <div>
-            <label for="list">List</label>
-            <select id="list" name="list" required>
-              <option value="option1">Personal</option>
-            </select>
-          </div>
-          <button class="close-dialog" type="submit">Submit</button>
-        </form>
+        <div class="new-todo-dialog-main-content">
+          <form>
+            <div>
+              <label for="todo_name">Task Name</label>
+              <input type="text" id="todo_name" name="todo_name" />
+            </div>
+            <div>
+              <label for="todo_description">To-do Description</label>
+              <textarea
+                id="todo_description"
+                name="todo_description"
+              ></textarea>
+            </div>
+            <div>
+              <label for="due_date">Due Date</label>
+              <input type="date" id="due_date" name="due_date" />
+            </div>
+            <div class="custom-dropdown">
+              <label for="list">Category</label>
+              <input
+                type="text"
+                id="list"
+                name="list"
+                placeholder="Choose or type a category"
+              />
+              <div class="suggestions" id="suggestions"></div>
+            </div>
+            <div class="new-todo-button-group">
+              <button type="button" class="cancel-button">cancel</button>
+              <button class="close-dialog" type="submit">Submit</button>
+            </div>
+          </form>
+        </div>
       </dialog>
       <dialog class="todo-dialog"></dialog>
     </div>

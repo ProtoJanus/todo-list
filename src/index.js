@@ -62,6 +62,7 @@ class TodoUIController {
   }
 
   renderTodo(todo) {
+    console.log(TodoController.getTodos());
     const todoDialog = document.querySelector(".todo-dialog");
     const todoRow = document.createElement("div");
     todoRow.classList.add("todo-row", todo.todoColor);
@@ -236,22 +237,149 @@ closeDialog.addEventListener("click", (e) => {
     "color-1"
   );
 
-  todoUIController.renderTodo(newTodo);
+  const currentCategory =
+    document.querySelector(".todo-table-header").textContent;
+  if (currentCategory === todoCategory) {
+    todoUIController.renderTodo(newTodo);
+  }
+
+  const sidebarUl = document.querySelector(".sidebar ul");
+
+  const existingCategory = Array.from(sidebarUl.children).find(
+    (li) => li.textContent === todoCategory
+  );
+
+  if (!existingCategory) {
+    const newCategoryItem = document.createElement("li");
+    newCategoryItem.textContent = todoCategory;
+    newCategoryItem.classList.add("category");
+    sidebarUl.appendChild(newCategoryItem);
+  }
 
   dialog.close();
-
   document.querySelector("form").reset();
+});
+
+const cancelNewTodoButton = document.querySelector(".cancel-button");
+cancelNewTodoButton.addEventListener("click", (e) => {
+  dialog.close();
 });
 
 window.addEventListener("DOMContentLoaded", () => {
   const todos = TodoController.getTodos();
-  todos.forEach((todo) => todoUIController.renderTodo(todo));
+  const personalTodos = todos.filter(
+    (todo) => todo.todoCategory === "Personal"
+  );
+  personalTodos.forEach((todo) => todoUIController.renderTodo(todo));
 });
 
 const hamburgerButton = document.querySelector(".hamburger-button");
 const sidebar = document.querySelector(".sidebar");
 
+const sidebarUl = document.createElement("ul");
+
+sidebarUl.addEventListener("click", (event) => {
+  const todoTable = document.querySelector(".todo-table");
+
+  if (event.target && event.target.tagName === "LI") {
+    console.log(event.target.textContent);
+    todoTable.innerHTML = "";
+    const todoTableHeader = document.createElement("div");
+    todoTableHeader.classList.add("todo-table-header");
+    todoTableHeader.textContent = event.target.textContent;
+
+    todoTable.appendChild(todoTableHeader);
+    const todos = TodoController.getTodos();
+    const currentCategoryTodos = todos.filter(
+      (todo) => todo.todoCategory === event.target.textContent
+    );
+    currentCategoryTodos.forEach((todo) => todoUIController.renderTodo(todo));
+  }
+});
+
+const categoryPersonal = document.createElement("li");
+categoryPersonal.textContent = "Personal";
+categoryPersonal.classList.add("category");
+sidebarUl.appendChild(categoryPersonal);
+
+const categories = getCategoriesFromTodos();
+categories.forEach((category) => {
+  const categoryUI = document.createElement("li");
+  categoryUI.textContent = category;
+  categoryUI.classList.add("category");
+  if (category !== "Personal") {
+    sidebarUl.appendChild(categoryUI);
+  }
+});
+
+sidebar.appendChild(sidebarUl);
+
 hamburgerButton.addEventListener("click", () => {
   hamburgerButton.classList.toggle("active");
   sidebar.classList.toggle("active");
+});
+const input = document.getElementById("list");
+const suggestions = document.getElementById("suggestions");
+const suggestionItems = suggestions.querySelectorAll(".suggestion-item");
+
+function getCategoriesFromTodos() {
+  const todoItems = TodoController.getTodos() || [];
+  const categories = new Set();
+
+  todoItems.forEach((item) => {
+    if (item.todoCategory) {
+      categories.add(item.todoCategory);
+    }
+  });
+
+  categories.add("Personal");
+
+  return Array.from(categories);
+}
+
+input.addEventListener("focus", () => {
+  suggestions.style.display = "flex";
+
+  const categories = getCategoriesFromTodos();
+  suggestions.innerHTML = "";
+
+  categories.forEach((category) => {
+    const suggestionItem = document.createElement("div");
+    suggestionItem.classList.add("suggestion-item");
+    suggestionItem.addEventListener("click", () => {
+      const categoryListInput = document.getElementById("list");
+      categoryListInput.value = suggestionItem.textContent;
+    });
+    suggestionItem.textContent = category;
+    suggestions.appendChild(suggestionItem);
+  });
+});
+
+input.addEventListener("input", () => {
+  const value = input.value.toLowerCase();
+
+  const suggestionItems = suggestions.querySelectorAll(".suggestion-item");
+
+  const visibleItems = Array.from(suggestionItems).filter((item) =>
+    item.textContent.toLowerCase().includes(value)
+  );
+
+  suggestionItems.forEach((item) => (item.style.display = "none"));
+
+  visibleItems.forEach((item) => (item.style.display = "block"));
+
+  suggestions.style.display = value ? "block" : "none";
+});
+
+suggestionItems.forEach((item) => {
+  item.addEventListener("click", () => {
+    input.value = item.textContent;
+    suggestions.style.display = "none";
+  });
+});
+
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".custom-dropdown")) {
+    suggestions.style.display = "none";
+  }
 });

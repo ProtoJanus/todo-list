@@ -15,7 +15,7 @@ body {
   left: -450px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+
   align-items: center;
   font-size: 3rem;
   transition: 0.3s ease;
@@ -306,4 +306,116 @@ dialog::backdrop {
 
 .custom-radios input[type="radio"]:checked + label span img {
   opacity: 1;
+}
+
+.new-todo-dialog {
+  border-radius: 10px;
+  padding: 0;
+  background-color: #494e63;
+}
+
+.new-todo-dialog-main-content {
+  width: 280px;
+  height: 450px;
+  background-color: #494e63;
+  border-radius: 10px;
+
+  form {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    label {
+      font-size: 20px;
+      font-weight: 700;
+    }
+    input {
+      width: 60%;
+    }
+    textarea {
+      width: 60%;
+      height: 60px;
+    }
+  }
+}
+
+.new-todo-button-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  button {
+    background-color: #5f73da;
+    border: none;
+    color: white;
+    font-weight: 700;
+    border-radius: 5px;
+    padding: 6px 15px;
+  }
+}
+
+.sidebar {
+  padding-top: 100px;
+  .sidebar-header {
+    font-size: 40px;
+    font-weight: 700;
+    color: white;
+  }
+  ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    li {
+      padding: 10px;
+      color: white;
+      font-weight: 700;
+      background-color: #424966;
+      border-radius: 5px;
+    }
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .sidebar {
+    position: relative;
+    width: 350px;
+    left: 0;
+    height: auto;
+  }
+
+  body {
+    display: flex;
+  }
+
+  .main-content {
+    flex-grow: 1;
+  }
+
+  .main-content-header {
+    height: 160px;
+  }
+
+  .main-content-title {
+    font-size: 40px;
+    padding-top: 55px;
+  }
+  .hamburger-button {
+    display: none;
+  }
+}
+
+#suggestions {
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  gap: 10px;
+  .suggestion-item {
+    padding: 3px 3px;
+    background-color: #2ecc71;
+    font-weight: 700;
+    border-radius: 3px;
+  }
 }
